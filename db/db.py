@@ -9,9 +9,10 @@ import ConfigParser
 
 def DB():
     db = ConfigParser.ConfigParser()
-    db.readfp('../config/config.ini')
+    db.read('../config/config.ini')
     url = db.get("db", "url")
-
+    print "url=%s" % url
 
     
-
+if __name__ == '__main__':
+    DB()
