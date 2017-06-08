@@ -1,0 +1,10 @@
+{{ zone  }}                 IN SOA  {{ zone_record[master_domain] }} {{ zone_record[mail_domain] }} (
+                                    {{ zone_record[soa_serial]  }} ; serial
+                                    {{ zone_record[soa_refresh]  }}; refresh (1 hour)
+                                    {{ zone_record[soa_retry] }}   ; retry (30 minutes)
+                                    {{ zone_record[soa_expire] }}  ; expire (1 week)
+                                    {{ zone_record[soa_minimum] }} ; minimum (1 day)
+                                     )
+{% for domain in domains  %}
+{{ domain[host]  }}         {{ domain[ttl] }}       {{ domain[type] }}      {{ domain[data] }}
+{% endfor  %}
