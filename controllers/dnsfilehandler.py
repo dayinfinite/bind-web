@@ -1,32 +1,40 @@
 #!/usr/bin/env python
 # coding=utf-8
-
+'''This dns file operate'''
 
 import os
-import sys
-from ..service import db
-from jinja2 import Template, Environment, FileSystemLoader
+from jinja2 import Environment, PackageLoader
 
 
-def templatExits(tfile):
+def TemplatExits(tfile):
     if os.path.isfile(tfile):
         return "{0} is exits".format(tfile)
 
-class DNSFileHandler:
+
+class DNSFileHandler(object):
+    """This create file about dns"""
 
     def __init__(self):
         pass
 
     def CreateZoneFile(self, zone, cluster, zone_record, domain_record):
-        env = Environment(loader=PackageLoader('service/templates/'))
+        env = Environment(loader=PackageLoader(package_name='service', 
+                                               package_path='templates', 
+                                               encoding='utf-8'))
         template = env.get_template('db.zone_template')
-        temp = template.render(zone, zone_record, domain_record)
+        temp = template.render(zone=zone,
+                               zone_record=zone_record, 
+                               domain_record=domain_record)
         with open('db.{0}'.format(zone), 'w') as zonefile:
             zonefile.write(temp)
 
     def CreateNamedFile(self, zones, type, ips=None):
-        env = Environment(loader=PackageLoader('service/templates/'))
+        env = Environment(loader=PackageLoader(package_name='service',
+                                               package_path='templates',
+                                               encoding='utf-8'))
         template = env.get_template('named.conf')
-        temp = template.render(zone, type, ips)
+        temp = template.render(zones=zones,
+                               type=type,
+                               ips=ips)
         with open('named.conf', 'w') as named_conf:
             named_conf.write(temp)

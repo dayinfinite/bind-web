@@ -3,28 +3,28 @@
 
 
 import os
-import sys
 import paramiko
-from ..config import Config
+from config import pkey, user
 
 
 def Filexits(file):
     return os.path.exists(file)
 
+
 def SSH_remote(ip, command):
-    key = paramiko.RSAKey.from_private_key_file(Config['pkey'])
+    key = paramiko.RSAKey.from_private_key_file(pkey)
     ssh = paramiko.SSHClient()
-    ssh.set_missing_host_key_policy(paramiko.AuthAddPolicy())
-    ssh.connect(ip, 22, Config['user'], pkey=key, timeout=5)
+    ssh.load_system_host_keys()
+    ssh.connect(ip, 22, user, pkey=key, timeout=5)
     stdin, stdout, stderr = ssh.exec_command(command)
     ssh.close()
     return stdout.readlines()
 
 
 def SCP_remote(ip, localfile, remotefile):
-    key = paramiko.RSAKey.from_private_key_file(Config['pkey'])
+    key = paramiko.RSAKey.from_private_key_file(pkey)
     scp = paramiko.Transport((ip, 22))
-    scp.connect(username=Config['user'], pkey=key, timeout=5)
+    scp.connect(username=user, pkey=key)
     sftp = paramiko.SFTPClient.from_transport(scp)
     stdin, stdout, stderr = sftp.put(localfile, remotefile)
     scp.close()

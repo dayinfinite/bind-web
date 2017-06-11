@@ -25,14 +25,14 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(password)
 
-class bind_cluster(db.Model):
+class Bind_cluster(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     cluster = db.Column(db.String(64), unique=False)
     bind_ip = db.Column(db.String(64), unique=False)
     timestamp = db.Column(db.DateTime(), datetime.datetime.now())
 
-class dns_zone(db.Model):
+class Dns_zone(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     zone = db.Column(db.String(64), unique=False)
@@ -44,11 +44,9 @@ class dns_zone(db.Model):
     soa_retry = db.Column(db.Integer, unique=True)
     soa_expire = db.Column(db.Integer, unique=True)
     soa_minimum = db.Column(db.Integer, unique=True)
-    status = db.Column(db.String(64), unique=False)
-    cluster_id = db.Column(db.Integer, db.Foreignkey('bind_cluster.id'))
     timestamp = db.Column(db.DateTime(), default=datetime.datetime.now())
 
-class dns_host(db.Model):
+class Dns_host(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     zone_id = db.Column(db.Integer, db.Foreignkey('dns_zone.id'))
