@@ -3,6 +3,7 @@
 
 
 import os
+import logging
 basedir = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'dns.db')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
@@ -10,6 +11,15 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 pkey = '/root/.ssh/id_rsa'
 user = 'root'
 
+
+logger = logging.getLogger()
+handler = logging.StreamHandler()
+formatter = logging.Formatter(
+            '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+)
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.DEBUG)
 
 class Config:
     SECRET_KEY = 'You-will-never-give-up'

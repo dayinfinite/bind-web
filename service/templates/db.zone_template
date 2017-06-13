@@ -1,4 +1,4 @@
-{{ zone  }}                 IN SOA  {{ zone_record[master_domain] }} {{ zone_record[mail_domain] }} (
+{{ zone_record[zone]  }}                 IN SOA  {{ zone_record[master_domain] }} {{ zone_record[mail_domain] }} (
                                     {{ zone_record[soa_serial]  }} ; serial
                                     {{ zone_record[soa_refresh]  }}; refresh (1 hour)
                                     {{ zone_record[soa_retry] }}   ; retry (30 minutes)
