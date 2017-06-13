@@ -10,23 +10,20 @@ import json
 
 def utils(Message):
 
-    msg = json.dumps(Message)
+    msg = Message
     ips = Bind_cluster.query.filter_by(cluster=msg['cluster']).all()
     zone_record = Dns_zone.query.filter_by(zone=msg['zone']).first()
-    domain_record = Dns_host.query.filter_by(cluster=msg['cluster']).all()
+    domain_record = Dns_host.query.filter_by(cluster=msg['cluster'],
+                                             zone=msg['zone']).all()
 
-    ZoneMsg = DNSFileHandler.CreateZoneFile(zone_record, domain_record)
-    if ZoneMsg['status']:
-        print "zone文件创建完成"
+    DNSFileHandler.CreateZoneFile(zone_record, domain_record)
+    DNSFileHandler.reateNamedFile(Dns_host.query.all(), type='master')
 
-    NameMsg = DNSFileHandler.reateNamedFile(Dns_host.query.filter_by().all(), type='master')
-    if NameMsg['status']:
-        print "bind主配置文件创建完成"
 
     for ip in ips:
-        print DNSHandler.CopyToRemote(ip, file=ZoneMsg['file'])
-        print DNSHandler.CopyToRemote(ip, file=NameMsg['file'])
-        print DNSHandler.CheckNamedConf(ip)
-        print DNSHandler.CheckZoneConf(ip, msg['zone'], ZoneMsg['file'])
-        print DNSHandler.RemoteBindReload(ip)
+        # print DNSHandler.CopyToRemote(ip, file=ZoneMsg['file'])
+        # print DNSHandler.CopyToRemote(ip, file=NameMsg['file'])
+        # print DNSHandler.CheckNamedConf(ip)
+        # print DNSHandler.CheckZoneConf(ip, msg['zone'], ZoneMsg['file'])
+        # print DNSHandler.RemoteBindReload(ip)
         return "ok"
