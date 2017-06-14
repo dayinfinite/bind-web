@@ -6,7 +6,7 @@ import os
 from jinja2 import Environment, FileSystemLoader
 
 def TemplatExits(file):
-    if os.path.isfile(file):
+    if os.path.isfile('tmp/'+ file):
         return {"status": True, 'filename': file}
 
 
@@ -27,15 +27,13 @@ class DNSFileHandler(object):
         return TemplatExits(file)
 
 
-    def CreateNamedFile(self, zones, type, ips=None):
+    def CreateNamedFile(self, zones):
         env = Environment(loader=FileSystemLoader(searchpath='service/templates/'))
         template = env.get_template('named.conf')
-        temp = template.render(zones=zones,
-                               type=type,
-                               ips=ips)
+        temp = template.render(zones=zones)
         with open('tmp/named.conf', 'w') as named_conf:
             named_conf.write(temp)
-        return TemplatExits(named.conf)
+        return TemplatExits('named.conf')
 
 
 if __name__ == '__main__':
@@ -63,5 +61,22 @@ if __name__ == '__main__':
             'status': 'on',
             'cluster': 'XG01'
             }]
+
+    zones = [
+        {
+            'zone': 'bai.com',
+            'type': 'master'
+        },
+        {
+            'zone': 'sina.com',
+            'type': 'master'
+         },
+        {
+            'zone': 'baidu.com',
+            'type': 'forward',
+            'ips': ['1.1.1.1', '2.2.2.2']
+        }
+    ]
     test = DNSFileHandler()
-    test.CreateZoneFile(zone_record, domain_record)
+    # print test.CreateZoneFile(zone_record, domain_record)
+    print test.CreateNamedFile(zones)
