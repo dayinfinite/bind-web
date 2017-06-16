@@ -8,10 +8,15 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'dns.db')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 SQLALCHEMY_TRACK_MODIFICATIONS = True
-pkey = '/root/.ssh/id_rsa'
+pkey = '/Users/didi/.ssh/id_rsa'
 user = 'root'
 
 
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                     datefmt='%m-%d %H:%M',
+                     filename='log/myapp.log',
+                     filemode='w')
 logger = logging.getLogger()
 handler = logging.StreamHandler()
 formatter = logging.Formatter(

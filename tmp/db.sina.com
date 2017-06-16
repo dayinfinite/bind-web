@@ -6,5 +6,5 @@ sina.com.                 IN SOA  root.sina.com. mail.sina.com. (
                                     3600 ; mininum (1 day)
                                      )
 $ORIGIN sina.com.
-
-www         180       A      1.1.1.1
+www    180    IN    A             1.1.1.1
+www    180    IN    A             2.2.2.2

@@ -49,7 +49,8 @@ if __name__ == '__main__':
             'soa_mininum': 3600
             }
 
-    domain_record = [{
+    domain_record = [
+            {
             'zone': 'sina.com',
             'host': 'www',
             'type': 'A',
@@ -60,7 +61,20 @@ if __name__ == '__main__':
             'weight': None,
             'status': 'on',
             'cluster': 'XG01'
-            }]
+            },
+            {
+            'zone': 'sina.com',
+            'host': 'www',
+            'type': 'A',
+            'data': '2.2.2.2',
+            'ttl': 180,
+            'prioriry': None,
+            'port': None,
+            'weight': None,
+            'status': 'on',
+            'cluster': 'XG01'
+            }
+    ]
 
     zones = [
         {
@@ -78,5 +92,5 @@ if __name__ == '__main__':
         }
     ]
     test = DNSFileHandler()
-    # print test.CreateZoneFile(zone_record, domain_record)
-    print test.CreateNamedFile(zones)
+    #print test.CreateZoneFile(zone_record, domain_record)
+    #print test.CreateNamedFile(zones)

@@ -6,6 +6,6 @@
                                     {{ zone_record['soa_mininum'] }} ; mininum (1 day)
                                      )
 $ORIGIN {{ zone_record['zone'] }}.
-{% for domain in domain_record  %}
-{{ domain['host']  }}         {{ domain['ttl'] }}       {{ domain['type'] }}      {{ domain['data'] }}
-{% endfor %}
+{%- for domain in domain_record  %}
+{{ domain['host']  }}    {{ domain['ttl'] }}    IN    {{ domain['type'] }}      {{ domain['priority']  }}       {{ domain['data'] }}
+{%- endfor -%}
