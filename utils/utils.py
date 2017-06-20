@@ -9,15 +9,16 @@ import json
 
 
 def utils(Message):
-
     msg = Message
-    ips = Bind_cluster.query.filter_by(cluster=msg['cluster']).all()
-    zone_record = Dns_zone.query.filter_by(zone=msg['zone']).first()
-    domain_record = Dns_host.query.filter_by(cluster=msg['cluster'],
-                                             zone=msg['zone']).all()
-
-    DNSFileHandler.CreateZoneFile(zone_record, domain_record)
-    DNSFileHandler.reateNamedFile(Dns_host.query.all(), type='master')
+    ips = Bind_cluster.query.filter_by().all()
+#    msg = Message
+#    ips = Bind_cluster.query.filter_by().all()
+#    zone_record = Dns_zone.query.filter_by(zone=msg['zone']).first()
+#    domain_record = Dns_host.query.filter_by(cluster=msg['cluster'],
+#                                             zone=msg['zone']).all()
+#
+#    DNSFileHandler.CreateZoneFile(zone_record, domain_record)
+#    DNSFileHandler.reateNamedFile(Dns_host.query.all(), type='master')
 
 
     for ip in ips:
