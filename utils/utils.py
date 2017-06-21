@@ -28,3 +28,8 @@ def utils(Message):
         # print DNSHandler.CheckZoneConf(ip, msg['zone'], ZoneMsg['file'])
         # print DNSHandler.RemoteBindReload(ip)
         return "ok"
+
+
+if __name__ == "__main__":
+    Message=" "
+
