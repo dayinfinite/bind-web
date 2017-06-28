@@ -8,12 +8,10 @@ from controllers.dnshandler import DNSHandler
 import json
 
 
-def utils():
-    # msg = Message
-    # ips = Bind_cluster.query.filter_by().all()
-#    msg = Message
-#    ips = Bind_cluster.query.filter_by().all()
-#    zone_record = Dns_zone.query.filter_by(zone=msg['zone']).first()
+def utils(Message):
+    msg = Message
+    ips = Bind_cluster.query.filter_by(cluster=msg['cluster']).all()
+    zone_record = Dns_zone.query.filter_by(zone=msg['zone']).first()
 #    domain_record = Dns_host.query.filter_by(cluster=msg['cluster'],
 #                                             zone=msg['zone']).all()
 #
@@ -33,6 +31,7 @@ def utils():
 if __name__ == "__main__":
     Message={
         "cluster": "XG01",
-        "zone": "sina.com"
+        "zone": "sina.com",
+        "zone_type": "hostname"
     }
 
